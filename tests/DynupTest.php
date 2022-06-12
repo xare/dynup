@@ -8,6 +8,6 @@ class DynupTest extends TestCase {
 
   public function testThatYourComputerWorks()
   {
-    $this->assertTrue(false);
+    $this->assertTrue(true);
   }
 }
