@@ -3,6 +3,7 @@
 namespace Tests\Files;
 
 use PHPUnit\Framework\TestCase;
+use App\Entity\Files;
 
 class FilesTest extends TestCase 
 {
