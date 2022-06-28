@@ -29,4 +29,9 @@ class Category
   {
     return $this->files;
   }
+
+  public function addFile(Files $file){
+    $this->files[] = $file;
+
+  }
 }
