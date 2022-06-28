@@ -36,6 +36,12 @@ use Doctrine\ORM\Mapping as ORM;
    */
   private $isImage;
 
+  /**
+   * @var Category
+   * @ORM\ManyToOne(targetEntity="Category", inversedBy="Files")
+   */
+  private $category;
+
   const LARGE = 1000;
   const HUGE = 10000;
 
