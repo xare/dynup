@@ -67,4 +67,23 @@ public function setUp(): void{
       ['Large Pdf', true, false],
     ];
   }
+  /**
+   * @dataProvider getHugeFileSpecTests
+   */
+  public function testItCreatesAHugeFile(string $specification)
+  {
+    $file=$this->factory->createFileFromSpecification($specification);
+    $this->assertGreaterThanOrEqual(Files::HUGE, $file->getSize());
+  }
+
+  public function getHugeFileSpecTests()
+  {
+      return [
+          ['huge files'],
+          ['huge file'],
+          ['huge'],
+          ['OMG'],
+          ['?'],
+      ];
+  }
 }

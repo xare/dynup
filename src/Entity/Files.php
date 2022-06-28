@@ -37,6 +37,7 @@ use Doctrine\ORM\Mapping as ORM;
   private $isImage;
 
   const LARGE = 1000;
+  const HUGE = 10000;
 
   public function __construct(string $mimeType = 'unknown', bool $isImage = false) 
   {

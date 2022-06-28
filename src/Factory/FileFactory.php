@@ -8,11 +8,8 @@ class FileFactory
 {
   public function createFileFromSpecification(string $specification): Files {
     $fileName = 'File-' . random_int(1, 99999);
-    $size = random_int(1, Files::LARGE - 1);
+    $size = $this->getSizeFromSpecification($specification);
     $isImage = false;
-    if (stripos($specification, 'large') !== false) {
-      $size = random_int(Files::LARGE, 2000);
-    }
     if (stripos($specification, 'image') !== false){
       $isImage = true;
     }
@@ -29,6 +26,27 @@ class FileFactory
     return $file;
   }
 
+  private function getSizeFromSpecification(string $specification): int
+  {
+    $availableSizes = [
+      'huge' => ['min' => Files::HUGE, 'max' => 20000],
+      'omg' =>  ['min' => Files::HUGE, 'max' => 20000],
+      '?' => ['min' => Files::HUGE, 'max' => 20000],
+      'large' => ['min' => Files::LARGE, 'max' => Files::HUGE - 1]
+    ];
+    $minSize = 1;
+    $maxSize = Files::LARGE - 1;
+
+    foreach ( explode(' ', $specification) as $keyword ) {
+      $keyword = strtolower($keyword);
+      if(array_key_exists($keyword, $availableSizes)){
+        $minSize = $availableSizes[$keyword]['min'];
+        $maxSize = $availableSizes[$keyword]['max'];
+        break;
+      }
+    }
+    return random_int( $minSize , $maxSize );
+  }
   public function createInforme(int $size)
   {
     $file = new Files();
