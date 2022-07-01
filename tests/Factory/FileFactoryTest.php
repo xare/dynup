@@ -62,9 +62,9 @@ public function setUp(): void{
   {
     return [
       //specification is large and is an image
-      ['large Image File', true, true],
-      ['give me all the cookies', false, false],
-      ['Large Pdf', true, false],
+      ['large Private Image File', true, true, true],
+      ['give me all the cookies', false, false, false],
+      ['Large private Pdf', true, false, true],
     ];
   }
   /**

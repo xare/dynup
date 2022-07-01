@@ -10,16 +10,21 @@ class FileFactory
     $fileName = 'File-' . random_int(1, 99999);
     $size = $this->getSizeFromSpecification($specification);
     $isImage = false;
+    $isPrivate = false;
     if (stripos($specification, 'image') !== false){
       $isImage = true;
     }
-    return $this->createFile($fileName, $isImage, $size);
+    if (stripos($specification, 'private') !== false){
+      $isPrivate = true;
+    }
+    return $this->createFile($fileName, $isImage, $size, $isPrivate);
 }
-  private function createFile(string $name, bool $isImage, int $size)
+  private function createFile(string $name, bool $isImage, int $size, bool $isPrivate)
   {
     $file = new Files();
     
     $file->setIsImage($isImage);
+    $file->setIsPrivate($isPrivate);
     $file->setName($name);
     $file->setSize($size);
 

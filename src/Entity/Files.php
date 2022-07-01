@@ -36,19 +36,26 @@ use Doctrine\ORM\Mapping as ORM;
    */
   private $isImage;
 
+   /**
+   * @var boolean
+   * @ORM\Column(type="boolean")
+   */
+  private $isPrivate;
+
   /**
    * @var Category
    * @ORM\ManyToOne(targetEntity="Category", inversedBy="Files")
    */
-  private $category;
+  private ?Category $category;
 
   const LARGE = 1000;
   const HUGE = 10000;
 
-  public function __construct(string $mimeType = 'unknown', bool $isImage = false) 
+  public function __construct(string $mimeType = 'unknown', bool $isImage = false, bool $isPrivate = false) 
   {
     $this->mimeType = $mimeType;
     $this->isImage = $isImage;
+    $this->isPrivate = $isPrivate;
   }
 
   /**
@@ -96,6 +103,16 @@ use Doctrine\ORM\Mapping as ORM;
   public function setIsImage(bool $isImage){
     $this->isImage = $isImage;
     return $this->isImage;
+  }
+
+  public function getIsPrivate(): bool
+  {
+    return $this->isPrivate;
+  }
+  
+  public function setIsPrivate(bool $isPrivate){
+    $this->isPrivate = $isPrivate;
+    return $this->isPrivate;
   }
 
   
