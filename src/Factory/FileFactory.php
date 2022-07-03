@@ -3,12 +3,19 @@
 namespace App\Factory;
 
 use App\Entity\Files;
+use App\Service\FileSizeDeterminator;
 
 class FileFactory
 {
+  private \App\Service\FileSizeDeterminator $sizeDeterminator;
+
+  public function __construct(FileSizeDeterminator $sizeDeterminator) 
+  {
+    $this->sizeDeterminator = $sizeDeterminator;
+  }
   public function createFileFromSpecification(string $specification): Files {
     $fileName = 'File-' . random_int(1, 99999);
-    $size = $this->getSizeFromSpecification($specification);
+    $size = $this->sizeDeterminator->getSizeFromSpecification($specification);
     $isImage = false;
     $isPrivate = false;
     if (stripos($specification, 'image') !== false){
@@ -19,7 +26,7 @@ class FileFactory
     }
     return $this->createFile($fileName, $isImage, $size, $isPrivate);
 }
-  private function createFile(string $name, bool $isImage, int $size, bool $isPrivate)
+  public function createFile(string $name, bool $isImage, int $size, bool $isPrivate)
   {
     $file = new Files();
     

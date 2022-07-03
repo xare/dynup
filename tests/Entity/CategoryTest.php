@@ -41,7 +41,7 @@ class CategoryTest extends TestCase
    /**
    * @expectedException \App\Exception\NotMixingException
    */
-  public function testItDoesNotAllowNonImageToMixWithImage() {
+ public function testItDoesNotAllowNonImageToMixWithImage() {
     $category = new Category(true);
     $category->addFile(new Files('image', false, false));
     $category->addFile(new Files());  
