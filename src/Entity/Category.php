@@ -16,6 +16,12 @@ use Doctrine\ORM\Mapping as ORM;
 class Category 
 {
   /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+  /**
    * @var Collection;
    * @ORM\OneToMany(targetEntity="App\Entity\Files", mappedBy="category", cascade={"persist"})
    */
@@ -23,7 +29,7 @@ class Category
 
   /**
    * @var Collection|Security[]
-   * @ORM\OneToMany(targetEntity="App\Entity\Security" mappedBy="category", cascade={"persist"})
+   * @ORM\OneToMany(targetEntity="App\Entity\Security", mappedBy="category", cascade={"persist"})
    */
   private $securities;
 
@@ -57,6 +63,7 @@ class Category
   {
     $this->securities[] = $security;
   }
+  
   public function isSecurityActive(): bool
   {
     foreach ($this->securities as $security) {
@@ -72,5 +79,9 @@ class Category
   {
     return count($this->files) === 0 
             || $this->files->first()->getIsImage() === $file->getIsImage();
+  }
+  public function getSecurities(): Collection
+  {
+      return $this->securities;
   }
 }

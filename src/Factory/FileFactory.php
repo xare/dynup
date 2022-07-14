@@ -16,6 +16,7 @@ class FileFactory
   public function createFileFromSpecification(string $specification): Files {
     $fileName = 'File-' . random_int(1, 99999);
     $size = $this->sizeDeterminator->getSizeFromSpecification($specification);
+    
     $isImage = false;
     $isPrivate = false;
     if (stripos($specification, 'image') !== false){

@@ -15,7 +15,6 @@ class FileSizeDeterminatorTest extends TestCase
   {
     $determinator = new FileSizeDeterminator();
     $actualSize = $determinator->getSizeFromSpecification($spec);
-
     $this->assertGreaterThanOrEqual($minExpectedSize, $actualSize);
     $this->assertLessThanOrEqual($maxExpectedSize, $actualSize);
   }

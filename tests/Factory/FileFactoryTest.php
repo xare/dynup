@@ -13,9 +13,16 @@ class FileFactoryTest extends TestCase
    */
 private $factory;
 
+/**
+ * Undocumented variable
+ *
+ * @var \PHPUnit_Framework_MockObject_MockObject
+ */
+private $sizeDeterminator;
+
 public function setUp(): void{
-  $mockSizeDeterminator = $this->createMock(FileSizeDeterminator::class);
-  $this->factory = new FileFactory($mockSizeDeterminator);
+  $this->sizeDeterminator = $this->createMock(FileSizeDeterminator::class);
+  $this->factory = new FileFactory($this->sizeDeterminator);
 }
 
   /* public function testItCreatesAFile()
@@ -47,10 +54,16 @@ public function setUp(): void{
    */
   public function testItCreatesAFileFromSpecification(string $spec, bool $expectedIsImage)
   {
+
+    $this->sizeDeterminator
+      ->expects($this->once())
+      ->method('getSizeFromSpecification')
+      ->with($spec)
+      ->willReturn(20000);
     $file = $this->factory->createFileFromSpecification($spec);
     
     $this->assertSame($expectedIsImage, $file->getIsImage());
-    
+    $this->assertSame(20000, $file->getSize());
     //$this->assertTrue($file->getIsImage(),'File types do not match');
   }
 

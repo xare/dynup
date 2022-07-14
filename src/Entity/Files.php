@@ -11,10 +11,17 @@ use Doctrine\ORM\Mapping as ORM;
 
  class Files
  {
-
+  const LARGE = 1000;
+  const HUGE = 10000;
+   /**
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @ORM\Column(type="integer")
+     */
+    private $id;
   /**
    * @var string
-   * @ORM|column(type="string")
+   * @ORM\Column(type="string")
    */
   private $name;
   
@@ -48,8 +55,7 @@ use Doctrine\ORM\Mapping as ORM;
    */
   private ?Category $category;
 
-  const LARGE = 1000;
-  const HUGE = 10000;
+
 
   public function __construct(string $mimeType = 'unknown', bool $isImage = false, bool $isPrivate = false) 
   {
